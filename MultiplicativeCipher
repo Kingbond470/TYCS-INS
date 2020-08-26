@@ -1,0 +1,51 @@
+// Multiplicative cipher substution
+import java.util.Scanner;
+public class Main
+{
+		public static String ALPHABET="abcdefghijklmnopqrstuvwxyz";
+	// Encrypted message method is defined 
+		public static String encrypt(String plainText, int shiftkey){
+			plainText=plainText.toLowerCase();        //converting text to lower case bcoz given ALPHABET is in lower case
+			String cipherText=" ";
+			for(int i=0; i<plainText.length();i++)
+            {      // for loop for finding the pos and replacing with char during encryption
+				int charPostion=ALPHABET.indexOf(plainText.charAt(i));    // character postion 
+				int keyVal=(charPostion*shiftkey)%26;						// to find a unique key for char with shiftkey
+				char charReplace=ALPHABET.charAt(keyVal);				//replacing with new char from taking char pos
+				cipherText+=charReplace;
+			}
+			return cipherText;
+		}
+		/*        
+    //Decryption is not working properly
+    public static String decrypt(String cipherText,int shiftkey)
+		{
+			cipherText=cipherText.toLowerCase();
+			String plainText=" ";			
+			for(int i=0; i<cipherText.length(); i++)
+			{
+				int charPostion=ALPHABET.indexOf(cipherText.charAt(i));
+
+				int keyVal=((charPostion*shiftkey)-1)%26;
+				if (keyVal<0)
+				{
+					keyVal=ALPHABET.length()+keyVal;
+				}
+				char charReplace=ALPHABET.charAt(keyVal); 
+				plainText+=charReplace;		 
+			}
+			return plainText;
+		}
+    */
+
+	public static void main(String[] args)
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the message");
+		String message=new String();
+		message=sc.next();
+        System.out.println(message);
+		System.out.println("Encrypted message is"+encrypt(message,7));
+		System.out.println("Decrypted message is"+decrypt(encrypt(message,7),7));
+	}
+}
